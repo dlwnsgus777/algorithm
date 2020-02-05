@@ -1,6 +1,5 @@
 package BFS;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,15 +20,27 @@ public class BFS_Practice {
 		graph.put("H", new String[] {"C"});
 		graph.put("I", new String[] {"C", "J"});
 		graph.put("J", new String[] {"I"});
-		ArrayList<String> arr = new ArrayList<String>();
+
+		bfs(graph, "A");
+	}
+	
+	public static ArrayList<String> bfs(HashMap<String, String[]> graph, String start_node) {
+		ArrayList<String> visited = new ArrayList<String>();
+		ArrayList<String> need_visited = new ArrayList<String>();
 		
-		for (String key : graph.keySet()) {
-			String[] value = graph.get(key);
-			System.out.println(key + Arrays.toString(value));
-			arr.addAll(Arrays.asList(value));
+		need_visited.add(start_node);
+
+		while (need_visited.size() > 0) {
+			String node = need_visited.get(0);
+			need_visited.remove(0);
+			if (!visited.contains(node)) {
+				visited.add(node);
+				need_visited.addAll(Arrays.asList(graph.get(node)));
+			}
 		}
 		
-		System.out.println(arr.toString());
+		System.out.println(visited.toString());
+		return visited;
 	}
 
 }
